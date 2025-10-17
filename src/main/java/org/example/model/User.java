@@ -1,9 +1,40 @@
 package org.example.model;
 
+import jakarta.persistence.*;
+
+import java.util.Date;
+
+@Entity
 public class User {
+    @Id
+    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    private long id;
+
     private String name;
+
     private String surname;
+
     private int Age;
+
+    private String dni;
+
+    private Date birthdate;
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
+    }
 
     public String getName() {
         return name;
