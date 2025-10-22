@@ -20,14 +20,16 @@ const UsuarioList = ({ onEdit }) => {
 
   return (
     <div className="p-4">
-      <h2>Lista de Usuarios</h2>
+      <h2>List of Users</h2>
       <table border="1" cellPadding="8">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Acciones</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+            <th>DNI</th>
+            <th>Birthdate</th>
           </tr>
         </thead>
         <tbody>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "../api";
 
 const UsuarioForm = ({ usuarioSeleccionado, onSuccess }) => {
-  const [usuario, setUsuario] = useState({ nombre: "", email: "", password: "" });
+  const [usuario, setUsuario] = useState({ nombre: "", surname: "", age: "", DNI: "", birthday: "" });
 
   useEffect(() => {
     if (usuarioSeleccionado) setUsuario(usuarioSeleccionado);
@@ -21,13 +21,13 @@ const UsuarioForm = ({ usuarioSeleccionado, onSuccess }) => {
       await api.post("/", usuario);
     }
 
-    setUsuario({ nombre: "", email: "", password: "" });
+    setUsuario({ nombre: "", surname: "", age: "", DNI: "", birthday: "" });
     onSuccess();
   };
 
   return (
     <div className="p-4">
-      <h2>{usuario.id ? "Editar Usuario" : "Nuevo Usuario"}</h2>
+      <h2>{usuario.id ? "Edit User" : "New User"}</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -38,18 +38,34 @@ const UsuarioForm = ({ usuarioSeleccionado, onSuccess }) => {
           required
         />
         <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={usuario.email}
+          type="text"
+          name="surname"
+          placeholder="Apellido"
+          value={usuario.surname}
           onChange={handleChange}
           required
         />
         <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          value={usuario.password}
+          type="number" min={0}
+          name="age"
+          placeholder="Edad"
+          value={usuario.age}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="DNI"
+          placeholder="DNI"
+          value={usuario.DNI}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="date"
+          name="birthday"
+          placeholder="Fecha de Nacimiento"
+          value={usuario.birthday}
           onChange={handleChange}
           required
         />
