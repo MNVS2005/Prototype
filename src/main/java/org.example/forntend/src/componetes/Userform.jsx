@@ -1,39 +1,39 @@
 import React, { useState, useEffect } from "react";
 import api from "../api";
 
-const UsuarioForm = ({ usuarioSeleccionado, onSuccess }) => {
-  const [usuario, setUsuario] = useState({ nombre: "", surname: "", age: "", DNI: "", birthday: "" });
+const UserForm = ({ userSelected, onSuccess }) => {
+  const [user, setUser] = useState({ nombre: "", surname: "", age: "", DNI: "", birthday: "" });
 
   useEffect(() => {
-    if (usuarioSeleccionado) setUsuario(usuarioSeleccionado);
-  }, [usuarioSeleccionado]);
+    if (userSelected) setUser(userSelected);
+  }, [userSelected]);
 
   const handleChange = (e) => {
-    setUsuario({ ...usuario, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (usuario.id) {
-      await api.put(`/${usuario.id}`, usuario);
+    if (user.id) {
+      await api.put(`/${user.id}`, user);
     } else {
-      await api.post("/", usuario);
+      await api.post("/", user);
     }
 
-    setUsuario({ nombre: "", surname: "", age: "", DNI: "", birthday: "" });
+    setUser({ name: "", surname: "", age: "", DNI: "", birthday: "" });
     onSuccess();
   };
 
   return (
     <div className="p-4">
-      <h2>{usuario.id ? "Edit User" : "New User"}</h2>
+      <h2>{user.id ? "Edit User" : "New User"}</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="nombre"
           placeholder="Nombre"
-          value={usuario.nombre}
+          value={user.nombre}
           onChange={handleChange}
           required
         />
@@ -41,7 +41,7 @@ const UsuarioForm = ({ usuarioSeleccionado, onSuccess }) => {
           type="text"
           name="surname"
           placeholder="Apellido"
-          value={usuario.surname}
+          value={user.surname}
           onChange={handleChange}
           required
         />
@@ -49,7 +49,7 @@ const UsuarioForm = ({ usuarioSeleccionado, onSuccess }) => {
           type="number" min={0}
           name="age"
           placeholder="Edad"
-          value={usuario.age}
+          value={user.age}
           onChange={handleChange}
           required
         />
@@ -57,7 +57,7 @@ const UsuarioForm = ({ usuarioSeleccionado, onSuccess }) => {
           type="text"
           name="DNI"
           placeholder="DNI"
-          value={usuario.DNI}
+          value={user.DNI}
           onChange={handleChange}
           required
         />
@@ -65,16 +65,16 @@ const UsuarioForm = ({ usuarioSeleccionado, onSuccess }) => {
           type="date"
           name="birthday"
           placeholder="Fecha de Nacimiento"
-          value={usuario.birthday}
+          value={user.birthday}
           onChange={handleChange}
           required
         />
         <button type="submit">
-          {usuario.id ? "Actualizar" : "Guardar"}
+          {user.id ? "Actualizar" : "Guardar"}
         </button>
       </form>
     </div>
   );
 };
 
-export default UsuarioForm;
+export default UserForm;

@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import api from "../api";
 
-const UsuarioList = ({ onEdit }) => {
-  const [usuarios, setUsuarios] = useState([]);
+const UserList = ({ onEdit }) => {
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    cargarUsuarios();
+    loadUsers();
   }, []);
 
-  const cargarUsuarios = async () => {
+  const loadUsers = async () => {
     const res = await api.get("/");
-    setUsuarios(res.data);
+    setUsers(res.data);
   };
 
-  const eliminarUsuario = async (id) => {
+  const eraseUser = async (id) => {
     await api.delete(`/${id}`);
-    cargarUsuarios();
+    loadUsers();
   };
 
   return (
@@ -33,14 +33,17 @@ const UsuarioList = ({ onEdit }) => {
           </tr>
         </thead>
         <tbody>
-          {usuarios.map((u) => (
+          {users.map((u) => (
             <tr key={u.id}>
               <td>{u.id}</td>
-              <td>{u.nombre}</td>
-              <td>{u.email}</td>
+              <td>{u.name}</td>
+              <td>{u.surname}</td>
+              <td>{u.age}</td>
+              <td>{u.DNI}</td>
+              <td>{u.birthday}</td>
               <td>
                 <button onClick={() => onEdit(u)}>Editar</button>
-                <button onClick={() => eliminarUsuario(u.id)}>Eliminar</button>
+                <button onClick={() => eraseUser(u.id)}>Eliminar</button>
               </td>
             </tr>
           ))}
@@ -50,4 +53,4 @@ const UsuarioList = ({ onEdit }) => {
   );
 };
 
-export default UsuarioList;
+export default UserList;
