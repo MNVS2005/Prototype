@@ -18,19 +18,32 @@ public class UserController {
     public UserController (UserRepository repository){
         this.repository=repository;
     }
-
+    //Listar todos los usuarios
     @GetMapping
     public List<User> userlist(){
         return repository.findAll();
     }
-
+    //  Buscar usuario por ID
+    @GetMapping("/{id}")
     public Optional<User> serchbyid(Long id){
         return repository.findById(id);
     }
+    //Actualizar usuario existente
     @PostMapping
-    public User save(User user){
+    public User save(@RequestParam String name,
+                     @RequestParam String surname,
+                     @RequestParam int age,
+                     @RequestParam String dni,
+                     @RequestParam String birthdate) {
+        User user = new User();
+        user.setName(name);
+        user.setSurname(surname);
+        user.setAge(age);
+        user.setDni(dni);
+        user.setBirthdate(birthdate);
         return repository.save(user);
     }
+
 
     public User actualizar(Long id, User user) {
         return repository.findById(id)
@@ -44,6 +57,8 @@ public class UserController {
                 })
                 .orElseThrow(() -> new RuntimeException("User is not found"));
     }
+
+    //Eliminar usuario por ID
     public void deleteduser(Long id){
         repository.deleteById(id);
     }

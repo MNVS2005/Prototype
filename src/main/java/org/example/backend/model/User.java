@@ -2,7 +2,7 @@ package org.example.backend.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class User {
@@ -18,7 +18,15 @@ public class User {
 
     private String dni;
 
-    private Date birthdate;
+    private String birthdate;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getDni() {
         return dni;
@@ -28,11 +36,11 @@ public class User {
         this.dni = dni;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -59,4 +67,6 @@ public class User {
     public void setAge(int age) {
         Age = age;
     }
+
+
 }
