@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../api";
+
 
 const UserList = ({ onEdit }) => {
   const [users, setUsers] = useState([]);
@@ -12,8 +12,13 @@ const UserList = ({ onEdit }) => {
   }, []);
   
   const eraseUser = async (id) => {
-    await api.delete(`/user/${id}`);
-    setUsers(users.filter(u => u.id !== id));
+    await fetch(`http://localhost:8080/user/${id}`, {
+      method: 'DELETE',
+      })
+    .then(res => res.json())
+    .then(res=> {
+      console.log(res);
+      });
   };
 
   return (
