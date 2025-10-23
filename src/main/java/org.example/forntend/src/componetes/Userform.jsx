@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from "../api";
+
 
 const UserForm = ({ userSelected, onSuccess }) => {
   const [user, setUser] = useState({ nombre: "", surname: "", age: "", DNI: "", birthday: "" });
@@ -14,15 +14,19 @@ const UserForm = ({ userSelected, onSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (user.id) {
-      await api.put(`/${user.id}`, user);
-    } else {
-      await api.post("/", user);
-    }
+    const formData = new FormData();
+    formData.append("name", user.name);
+    formData.append("surname", user.surname);
+    formData.append("dni", user.DNI);
+    formData.append("birthdate", user.birthday);
+    formData.append("age", user.age);
+    await fetch("http://localhost:8080/user", {
+      method: "POST",
+      body: formData
+    });
 
     setUser({ name: "", surname: "", age: "", DNI: "", birthday: "" });
-    onSuccess();
+    onSuccess?.();
   };
 
   return (
@@ -31,9 +35,9 @@ const UserForm = ({ userSelected, onSuccess }) => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="nombre"
+          name="name"
           placeholder="Nombre"
-          value={user.nombre}
+          value={user.name || ""}
           onChange={handleChange}
           required
         />
@@ -41,7 +45,7 @@ const UserForm = ({ userSelected, onSuccess }) => {
           type="text"
           name="surname"
           placeholder="Apellido"
-          value={user.surname}
+          value={user.surname || ""}
           onChange={handleChange}
           required
         />
@@ -49,7 +53,7 @@ const UserForm = ({ userSelected, onSuccess }) => {
           type="number" min={0}
           name="age"
           placeholder="Edad"
-          value={user.age}
+          value={user.age || ""}
           onChange={handleChange}
           required
         />
@@ -57,7 +61,7 @@ const UserForm = ({ userSelected, onSuccess }) => {
           type="text"
           name="DNI"
           placeholder="DNI"
-          value={user.DNI}
+          value={user.DNI || ""}
           onChange={handleChange}
           required
         />
@@ -65,7 +69,7 @@ const UserForm = ({ userSelected, onSuccess }) => {
           type="date"
           name="birthday"
           placeholder="Fecha de Nacimiento"
-          value={user.birthday}
+          value={user.birthday || ""}
           onChange={handleChange}
           required
         />
