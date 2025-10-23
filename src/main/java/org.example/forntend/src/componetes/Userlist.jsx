@@ -12,7 +12,7 @@ const UserList = ({ onEdit }) => {
   }, []);
   
   const eraseUser = async (id) => {
-    await api.deleteuser(`/user/${id}`);
+    await api.delete(`/user/${id}`);
     setUsers(users.filter(u => u.id !== id));
   };
 

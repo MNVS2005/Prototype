@@ -59,7 +59,7 @@ public class UserController {
     }
 
     //Eliminar usuario por ID
-    public void deleteduser(Long id){
+    public void deleted(Long id){
         repository.deleteById(id);
     }
 
