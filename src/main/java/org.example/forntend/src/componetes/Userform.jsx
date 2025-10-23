@@ -25,9 +25,19 @@ const UserForm = ({ userSelected, onSuccess }) => {
       body: formData
     });
 
-    setUser({ name: "", surname: "", age: "", DNI: "", birthday: "" });
-    if (onSuccess) onSuccess();
-  };
+     const url = user.id ? `http://localhost:8080/user/${user.id}` : "http://localhost:8080/user";
+      
+     const method = user.id ? "PUT" : "POST";
+
+      await fetch(url, {
+        method,
+        body: formData,
+      });
+    
+        setUser({ name: "", surname: "", age: "", DNI: "", birthday: "" });
+        if (onSuccess) onSuccess();
+        window.location.reload();
+      };
 
   return (
     <div className="p-4">
@@ -73,7 +83,7 @@ const UserForm = ({ userSelected, onSuccess }) => {
           onChange={handleChange}
           required
         />
-        <button type="submit">
+        <button type="submit" >
           {user.id ? "Actualizar" : "Guardar"}
         </button>
       </form>

@@ -12,14 +12,12 @@ const UserList = ({ onEdit }) => {
   }, []);
   
   const eraseUser = async (id) => {
-    await fetch(`http://localhost:8080/user/${id}`, {
-      method: 'DELETE',
-      })
-    .then(res => res.json())
-    .then(res=> {
-      console.log(res);
-      });
-  };
+  await fetch(`http://localhost:8080/user/${id}`, {
+    method: 'DELETE',
+  });
+  setUsers(users.filter(u => u.id !== id)); // actualiza la lista en memoria
+};
+
 
   return (
     <div className="p-4">
