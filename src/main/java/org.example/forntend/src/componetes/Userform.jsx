@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
-import api from "../api";
+
 
 const UserForm = ({ userSelected, onSuccess }) => {
   const [user, setUser] = useState({ nombre: "", surname: "", age: "", DNI: "", birthday: "" });
 
   useEffect(() => {
-    if (userSelected) setUser(userSelected);
+    if (userSelected) setUser({
+      name: userSelected.name || "",
+      surname: userSelected.surname || "",
+      age: userSelected.age || "",
+      DNI: userSelected.DNI || "",
+      birthday: userSelected.birthday || "",
+      id: userSelected.id || null
+    });
   }, [userSelected]);
 
   const handleChange = (e) => {
@@ -14,15 +21,23 @@ const UserForm = ({ userSelected, onSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (user.id) {
-      await api.put(`/${user.id}`, user);
-    } else {
-      await api.post("/", user);
-    }
+    const userData = {
+      name: user.name,
+      surname: user.surname,
+      age: user.age,
+      DNI: user.DNI,
+      birthday: user.birthday
+    };
+    await fetch("http://localhost:8080/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(userData)
+    });
 
     setUser({ name: "", surname: "", age: "", DNI: "", birthday: "" });
-    onSuccess();
+    if (onSuccess) onSuccess();
   };
 
   return (

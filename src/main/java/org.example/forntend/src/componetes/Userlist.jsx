@@ -5,17 +5,15 @@ const UserList = ({ onEdit }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    loadUsers();
+    fetch("http://localhost:8080/user")
+      .then(res => res.json())
+      .then(data => setUsers(data.sort((a,b) => a.name.localeCompare(b.name))));
+ 
   }, []);
-
-  const loadUsers = async () => {
-    const res = await api.get("/");
-    setUsers(res.data);
-  };
-
+  
   const eraseUser = async (id) => {
     await api.delete(`/${id}`);
-    loadUsers();
+    setUsers(users.filter(u => u.id !== id));
   };
 
   return (

@@ -19,7 +19,7 @@ public class UserController {
         this.repository=repository;
     }
 
-
+    @GetMapping
     public List<User> userlist(){
         return repository.findAll();
     }
@@ -27,11 +27,10 @@ public class UserController {
     public Optional<User> serchbyid(Long id){
         return repository.findById(id);
     }
-
+    @PostMapping
     public User save(User user){
         return repository.save(user);
     }
-
 
     public User actualizar(Long id, User user) {
         return repository.findById(id)
