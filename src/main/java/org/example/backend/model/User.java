@@ -10,15 +10,29 @@ public class User {
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private long id;
 
+    @Column
     private String name;
 
+    @Column
     private String surname;
 
+    @Column
     private int Age;
 
+    @Column
     private String dni;
-
+    @Column
     private String birthdate;
+    @Column
+    private String photoUrl;
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 
     public long getId() {
         return id;
