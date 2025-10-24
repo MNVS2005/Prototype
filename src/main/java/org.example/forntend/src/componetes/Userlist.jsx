@@ -43,8 +43,8 @@ const UserList = ({ onEdit }) => {
               <td>{u.dni}</td>
               <td>{u.birthdate}</td>
               <td>
-                <button onClick={() => onEdit(u)}>Editar</button>
-                <button onClick={() => eraseUser(u.id)}>Eliminar</button>
+                <button onClick={() => onEdit(u)}>Edit</button>
+                <button onClick={() => eraseUser(u.id)}>Delete</button>
               </td>
             </tr>
           ))}

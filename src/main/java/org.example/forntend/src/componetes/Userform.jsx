@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 
 const UserForm = ({ userSelected, onSuccess }) => {
-  const [user, setUser] = useState({ nombre: "", surname: "", age: "", DNI: "", birthday: "" });
+  const [user, setUser] = useState({ nombre: "", surname: "", age: "", dni: "", birthdate: "" });
 
   useEffect(() => {
     if (userSelected) setUser(userSelected);
@@ -17,8 +17,8 @@ const UserForm = ({ userSelected, onSuccess }) => {
      const formData = new FormData();
     formData.append("name", user.name);
     formData.append("surname", user.surname);
-    formData.append("dni", user.DNI);
-    formData.append("birthdate", user.birthday);
+    formData.append("dni", user.dni);
+    formData.append("birthdate", user.birthdate);
     formData.append("age", user.age);
     await fetch("http://localhost:8080/user", {
       method: "POST",
@@ -33,8 +33,8 @@ const UserForm = ({ userSelected, onSuccess }) => {
         method,
         body: formData,
       });
-    
-        setUser({ name: "", surname: "", age: "", DNI: "", birthday: "" });
+
+        setUser({ name: "", surname: "", age: "", dni: "", birthdate: "" });
         if (onSuccess) onSuccess();
         window.location.reload();
       };
@@ -84,7 +84,7 @@ const UserForm = ({ userSelected, onSuccess }) => {
           required
         />
         <button type="submit" >
-          {user.id ? "Actualizar" : "Guardar"}
+          {user.id ? "Update" : "Save"}
         </button>
       </form>
     </div>
