@@ -10,6 +10,7 @@ public class Config {
     @Bean
     public WebMvcConfigurer corsConfig(){
         return new WebMvcConfigurer() {
+
             public void addCorsMappongs(CorsRegistry registry){
                 registry.addMapping("/**") // aplica a todos los endpoints
                         .allowedOrigins("http://localhost:3000") // tu frontend React

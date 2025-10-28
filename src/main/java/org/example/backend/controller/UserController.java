@@ -34,10 +34,9 @@ public class UserController {
     }
     //  Buscar usuario por ID
     @GetMapping("/{id}")
-    public Optional<User> serchbyid(Long id){
+    public Optional<User> serchbyid(@PathVariable Long id){
         return repository.findById(id);
     }
-    //Actualizar usuario existente
     @PostMapping
     public User save(@RequestParam String name,
                      @RequestParam String surname,
@@ -59,7 +58,7 @@ public class UserController {
         return repository.save(user);
     }
 
-
+    //Actualizar usuario existente
     @PutMapping("/{id}")
     public User updateUser(
             @PathVariable long id,

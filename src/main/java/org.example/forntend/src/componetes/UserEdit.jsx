@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const UserEdit = ({ userId, onSuccess, onCancel }) => {
+const UserEdit = ({ userSelected, onSuccess, onCancel }) => {
   const [formData, setFormData] = useState({
     name: "",
     surname: "",
@@ -12,7 +12,7 @@ const UserEdit = ({ userId, onSuccess, onCancel }) => {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:8080/user/${userId}`)
+    fetch(`http://localhost:8080/user/${userSelected}`)
       .then(res => res.json())
       .then(data =>
         setFormData({
@@ -25,7 +25,7 @@ const UserEdit = ({ userId, onSuccess, onCancel }) => {
           photoUrl: data.photoUrl
         })
       );
-  }, [userId]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -41,10 +41,10 @@ const UserEdit = ({ userId, onSuccess, onCancel }) => {
     data.append("dni", formData.dni);
     data.append("birthdate", formData.birthdate);
     data.append("age", formData.age);
-
-    if (formData.photo instanceof File) data.append("photo", formData.photo);
-
-    await fetch(`http://localhost:8080/user/${userId}`, {
+    if (formData.photo) {
+      data.append("photo", formData.photo);
+    }
+    await fetch(`http://localhost:8080/user/${userSelected}`, {
       method: "PUT",
       body: data
     });
