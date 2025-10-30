@@ -1,6 +1,9 @@
 package org.example.backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
@@ -11,18 +14,24 @@ public class User {
     private long id;
 
     @Column
+    @Size(min=2, max=50)
     private String name;
 
     @Column
+    @Size(min=2, max=50)
     private String surname;
 
     @Column
     private int Age;
 
     @Column
+    @NotBlank(message = "El DNI es obligatorio")
+    @Pattern(regexp = "^[0-9A-Za-z]{7,10}$", message = "El DNI debe tener entre 7 y 10 caracteres alfanuméricos")
     private String dni;
+
     @Column
     private String birthdate;
+
     @Column
     private String photoUrl;
 

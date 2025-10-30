@@ -21,7 +21,7 @@ const App = () => {
       {!userSelected ? (
         <UserForm onSuccess={handleSuccess} />
       ) : (
-        <UserEdit userId={userSelected} onSuccess={handleSuccess} onCancel={() => setUserSelected(null)} />
+        <UserEdit userId={userSelected} onUpdate={handleSuccess} onCancel={() => setUserSelected(null)} />
       )}
       <Userlist onEdit={setUserSelected} key={reload} />
     </div>

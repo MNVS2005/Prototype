@@ -44,7 +44,7 @@ const UserList = ({ onEdit, reload }) => {
               <td>{u.birthdate}</td>
               <td>{u.photoUrl && (<img src={`http://localhost:8080${u.photoUrl}`} alt="User" width="150" />)}</td>
               <td>
-                <button onClick={() => onEdit(u)}>Edit</button>
+                <button onClick={() => onEdit(u.id)}>Edit</button>
                 <button onClick={() => eraseUser(u.id)}>Delete</button>
               </td>
             </tr>

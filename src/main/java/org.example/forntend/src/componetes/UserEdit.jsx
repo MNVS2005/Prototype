@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const UserEdit = ({ userSelected, onSuccess, onCancel }) => {
+const UserEdit = ({ userId, onUpdate, onCancel }) => {
   const [formData, setFormData] = useState({
     name: "",
     surname: "",
@@ -12,8 +12,11 @@ const UserEdit = ({ userSelected, onSuccess, onCancel }) => {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:8080/user/${userSelected}`)
-      .then(res => res.json())
+    fetch(`http://localhost:8080/user/${userId}`)
+      .then(res => {
+        if (!res.ok) throw new Error("Error fetching user");
+        return res.json();
+      })
       .then(data =>
         setFormData({
           name: data.name,
@@ -25,7 +28,7 @@ const UserEdit = ({ userSelected, onSuccess, onCancel }) => {
           photoUrl: data.photoUrl
         })
       );
-  }, []);
+  }, [userId]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -44,12 +47,12 @@ const UserEdit = ({ userSelected, onSuccess, onCancel }) => {
     if (formData.photo) {
       data.append("photo", formData.photo);
     }
-    await fetch(`http://localhost:8080/user/${userSelected}`, {
+    await fetch(`http://localhost:8080/user/${userId}`, {
       method: "PUT",
       body: data
     });
 
-    if (onSuccess) onSuccess();
+    if (onUpdate) onUpdate(); // Call onUpdate instead of onSuccess
   };
 
   return (
@@ -77,7 +80,7 @@ const UserEdit = ({ userSelected, onSuccess, onCancel }) => {
         <input type="file" name="photo" accept="image/*" onChange={handleChange} />
 
         <br />
-        <button type="submit">Update</button>
+        <button type="submit" >Update</button>
         <button type="button" onClick={onCancel}>Cancel</button>
       </form>
     </div>
